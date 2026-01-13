@@ -1,0 +1,26 @@
+::ng-deep .left-menu {
+  p-menu > div.p-menu.p-component {
+    height: 100vh;
+    background: var(--primary-color);
+    padding: 55px 0 40px 0;
+    // box-shadow: inset -1px 0 0 #ccc;
+  }
+
+  p-menu > div.p-menu.p-component > .p-menu-start {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+
+ 
+
+  p-menu .p-menuitem a {
+    text-decoration: none !important;
+  }
+  
+  .p-menuitem-icon, .p-menuitem-text {
+    color: var(--text-color-light);
+    font-size: 14px;
+  }
+}
+
