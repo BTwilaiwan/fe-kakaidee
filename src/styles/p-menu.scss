@@ -7,26 +7,32 @@
 .p-menu-item-link,
 .p-menuitem-link:hover, .p-menu-item .p-focus {
     color: var(--text-color-light); 
-    // padding: 5px 0;
     display: flex;
     flex-direction: column;
     align-items: center; 
     box-sizing: border-box;   
-    border-radius: 0;
+    border-radius: 5px;
+    padding: 10px 5px;
+    margin: 0 7px;
 }
 
 .p-menu-item:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content, .left-menu .p-menu .p-menu-item-link:hover, .left-menu .p-menu-item .p-focus,
-.p-menu-item.p-focus .p-menu-item-content{
+.p-menu-item.p-focus .p-menu-item-content, .p-menu-item:not(.p-disabled) .p-menu-item-content:hover {
     background: var(--primary-button-hover);
     color: var(--text-color-light);
-    // padding: 5px 0;
     display: flex;
     flex-direction: column;
     align-items: center; 
     box-sizing: border-box;
-    border-radius: 0;
+    border-radius: 5px;
+    padding: 10px 5px;
+    margin: 0 7px;
 }
 
+.p-menu-item-content {
+    padding: 10px 5px;
+    margin: 0 7px;
+}
 p-menu > div.p-menu.p-component ul {
     padding: 0;
 }
@@ -39,6 +45,10 @@ p-menu > div.p-menu.p-component ul {
     padding: 5px 0;
 }
 
+.p-menu-item-label  {
+    text-align: center;
+}
+
 @media (max-width: 426px) {
     .p-menu-item-label { display: none;}
     .p-menubar {
@@ -47,5 +57,25 @@ p-menu > div.p-menu.p-component ul {
     .p-avatar-xl {
         width: 50px;
         height: 50px;
+    }
+}
+
+@media (min-width: 426px) {
+    .p-menu { width: 120px; }
+}
+
+:host ::ng-deep {
+    .p-menu-item .menu-active,
+    .p-menuitem-link.router-link-active .p-menuitem-icon,
+    .p-menuitem-active > .p-menuitem-link {
+        background: var(--primary-button-hover);
+        color: var(--text-color-light);
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        box-sizing: border-box;
+        border-radius: 5px;
+        padding: 10px 5px;
+        margin: 0 7px;
     }
 }

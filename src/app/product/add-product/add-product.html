@@ -1,0 +1,82 @@
+<p-dialog header="{{titleHeader}}" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+[draggable]="false" [resizable]="false" (onHide)="onCancel()">
+    <form [formGroup]="productForm">
+        <div class="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-4 lg:grid-cols-12 mt-6">
+            <div class="col-span-6">
+                <label for="txtBarcode">Barcode</label>
+                <input pInputText id="txtBarcode" class="mt-2 mb-3" formControlName="barcode" />
+            </div>
+            <div class="col-span-6 ml-2">
+                <label for="skuCode">Sku Code</label>
+                <input pInputText id="txtSkuCode" class="mt-2 mb-3" formControlName="sku_code" />
+            </div>
+            <div class="col-span-6">
+                <label for="skuCode">Name</label>
+                <input pInputText id="txtName" class="mt-2 mb-3" formControlName="product_name"/>
+            </div>
+            <div class="col-span-6 ml-2">
+                <label for="ddlCategory">Category Code</label>
+                <p-select id="ddlCategory" [options]="categoryList" optionLabel="name" placeholder="Select Category Code" class="mt-2 mb-2"  formControlName="category_code"/>
+            </div>
+            <div class="col-span-6">
+                <label for="txtSupplier">Supplier Code</label>
+                <input pInputText id="txtSupplier" class="mt-2 mb-3" formControlName="supplier_code"/>
+            </div>
+            <div class="col-span-6 ml-2">
+                <label for="ddlBrandCode">brand code</label>
+                <p-select id="ddlBrandCode" [options]="brandCodeList" optionLabel="name" placeholder="Select Brand Code" class="mt-2 mb-2" formControlName="brand_code"/>
+
+            </div>
+            <div class="col-span-6">
+                <label for="ddlUnit">Unit</label>
+                <p-select id="ddlUnit" [options]="unitList" optionLabel="name" placeholder="Select Unit" class="mt-2 mb-3" formControlName="unit"/>
+            </div>
+            <div class="col-span-6 ml-2">
+                <label for="txtCostPrice">Cost Price</label>
+                <input pInputText id="txtCostPrice" class="mt-2 mb-3" formControlName="cost_price"/>
+            </div>
+            <div class="col-span-6">
+                <label for="ddlLotNo">Lot no</label>
+                <p-select id="ddlLotNo" [options]="lotNoList" optionLabel="name" placeholder="Select Lot No" class="mt-2 mb-3"  formControlName="lot_no"/>
+            </div>
+            <div class="col-span-6 ml-2">
+                <label for="txtBin">Bin</label>
+                <input pInputText id="txtBin" class="mt-2 mb-3" formControlName="bin"/>
+            </div>
+            <div class="col-span-6">
+                <label for="txtWarehouseName">Warehouse Name</label>
+                <input pInputText id="txtWarehouseName" class="mt-2 mb-3" formControlName="warehouse_name"/>
+            </div>
+            <div class="col-span-6 ml-2">
+                <label for="txtWarehouseZone">Warehouse Zone</label>
+                <input pInputText id="txtWarehouseZone" class="mt-2 mb-3" formControlName="warehouse_zone"/>
+            </div>
+            
+            <div class="col-span-6">
+                <label for="ddlStockType">Stock Type</label>
+                <p-select id="ddlStockType" [options]="stockTypeList" optionLabel="name" placeholder="Select Stock Type" class="mt-2 mb-3"  formControlName="stock_type"/>
+            </div>
+             <div class="col-span-6 ml-2">
+                <label for="txtReceive">Receive qty</label>
+                <input pInputText id="txtReceive" class="mt-2 mb-3" formControlName="receive_qty"/>
+            </div>
+             <div class="col-span-6">
+                <label for="txtMfg">mfg</label>
+                <p-datepicker formControlName="mfg" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" class="mt-2 mb-3"/>
+            </div>
+             <div class="col-span-6 ml-2">
+                <label for="txtExp">exp</label>
+                <p-datepicker formControlName="exp" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" class="mt-2 mb-3"/>
+            </div>
+             <div class="col-span-12">
+                <label for="txtDescription">Description</label>
+                <textarea id="txtDescription" pTextarea class="mt-2 mb-3" rows="5" formControlName="product_description"></textarea>
+            </div>
+        </div>
+        <div class="flex justify-center pt-4 pb-4 ">
+            <p-button label="Save" icon="pi pi-save" class="mr-2" (click)="onSave()"/>
+            <p-button label="Cancel" severity="secondary" (click)="onCancel()"></p-button>
+        </div>
+    </form>
+    
+</p-dialog>

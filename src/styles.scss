@@ -1,5 +1,11 @@
 @use './styles/variable' as *;
 @use './styles/p-menu.scss' as *;
+@use './styles/container.scss' as *;
+@use './styles/accordion.scss' as *;
+@use './styles/button.scss' as *;
+@use './styles/table.scss' as *;
+@use './styles/dialog.scss' as *;
+
 @layer tailwind-base, primeng, tailwind-components, tailwind-utilities;
 
 // @tailwind base;

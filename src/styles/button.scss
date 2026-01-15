@@ -1,0 +1,45 @@
+@layer app {
+    .btn-natural > button.p-button {
+        background: var(--color-light);
+        color: var(--color-text-dark-gray);
+        border: 0;
+    }
+    .btn-natural .p-button:not(.p-disabled):hover {
+        background: var(--color-light-dark);
+    }
+    .btn-cancel > button.p-button {
+        background: var(--color-light-dark);
+        color: var(--color-text-dark-gray);
+        border: 0;
+    }
+    .btn-cancel .p-button:not(.p-disabled):hover {
+        background: var(--color-light-dark);
+    }
+
+    .btn-add > button.p-button {
+        background: #10b98161;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+    }
+    .btn-add .p-button:not(.p-disabled):hover {
+        background: #0d785561;
+    }
+
+    .btn-import > button.p-button {
+        background: var(--color-light-blue);
+        color: var(--color-blue);
+        border: 1px solid var(--color-blue);
+    }
+    .btn-import .p-button:not(.p-disabled):hover {
+        background: #acd8f7;
+    }
+
+    .btn-export > button.p-button {
+        background: var(--color-light-green);
+        color: var(--color-green);
+        border: 1px solid var(--color-green);
+    }
+    .btn-export .p-button:not(.p-disabled):hover {
+        background: #c1fec1;
+    }
+}

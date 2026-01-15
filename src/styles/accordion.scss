@@ -1,0 +1,16 @@
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader,
+.p-accordionheader {
+    background: var(--primary-color);
+    color: var(--text-color-light);
+    font-size: 20px;
+}
+
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader .p-accordionheader-toggle-icon {
+    color: var(--text-color-light);
+}
+
+.p-accordioncontent-content {
+    padding: 20px;
+    background: #EDE6E6;
+    border-radius: 0 0 10px 10px;
+}

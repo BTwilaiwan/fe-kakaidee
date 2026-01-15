@@ -1,0 +1,19 @@
+.title-header {
+    color: var(--primary-color);
+    margin-bottom: 0;
+}
+
+.line-header {
+    border-radius: 10px;
+    border-top: 5px solid #db2777;
+    width: 60px;
+    margin-top: 0;
+}
+
+input, p-select {
+    width: 98%;
+}
+
+textarea, p-datepicker {
+    width: 99%;
+}

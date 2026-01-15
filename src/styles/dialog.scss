@@ -1,0 +1,9 @@
+.p-dialog-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: var(--primary-color);
+    color: var(--color-text-light);
+    .p-icon {
+        color: var(--color-text-light);
+    }
+}

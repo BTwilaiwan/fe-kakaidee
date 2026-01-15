@@ -12,8 +12,6 @@
     margin-bottom: 25px;
   }
 
- 
-
   p-menu .p-menuitem a {
     text-decoration: none !important;
   }
@@ -22,5 +20,10 @@
     color: var(--text-color-light);
     font-size: 14px;
   }
+
+  @media (min-width: 426px) {
+    .p-menu { width: 120px; }
+  }
+
 }
 

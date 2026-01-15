@@ -1,0 +1,104 @@
+<div class="layout-container">
+    <div class="container-header">
+        <h1 class="title-header">รายการสินค้า</h1>
+        <h2 class="line-header"></h2>
+    </div>
+    <div class="container-body">
+        <p-accordion value="0">
+            <p-accordion-panel value="0">
+                <p-accordion-header>Filter</p-accordion-header>
+                <p-accordion-content>
+                    <div class="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-4 lg:grid-cols-12">
+                        <div class="col-span-2">
+                            <label for="skuCode">Sku Code</label>
+                            <input pInputText id="txtSkuCode" class="mt-2 mb-2" aria-describedby="skuCode-help" />
+                        </div>
+                        <div class="col-span-2">
+                            <label for="txtName">Name</label>
+                            <input pInputText id="txtName" class="mt-2 mb-2" aria-describedby="name-help" />
+                        </div>
+                        <div class="col-span-2">
+                            <label for="ddlCategory">Category</label>
+                            <p-select id="ddlCategory" [options]="categoryList" optionLabel="name" placeholder="Select Category" class="mt-2 mb-2" />
+                        </div>
+                        <div class="col-span-2">
+                            <label for="txtLocation">Location</label>
+                            <input pInputText id="txtLocation" class="mt-2 mb-2" aria-describedby="location-help" />
+                        </div>
+                        <div class="col-span-2">
+                            <label for="ddlLot">Lot</label>
+                            <p-select id="ddlLot" [options]="lotList" optionLabel="name" placeholder="Select Lot" class="mt-2 mb-2" />
+
+                        </div>
+                        <div class="col-span-2">
+                            <label for="ddlStatus">Status</label>
+                            <p-select id="ddlStatus" [options]="statusList" optionLabel="name" placeholder="Select Status" class="mt-2 mb-2" />
+
+                        </div>
+                    </div>
+                    <div class="flex justify-center pt-4 pb-4 ">
+                        <p-button label="Search" icon="pi pi-search" class="mr-2"/>
+                        <p-button label="Clear" class="btn-natural" icon="fa-solid fa-filter-circle-xmark" iconPos="left"></p-button>
+                    </div>
+                </p-accordion-content>
+            </p-accordion-panel>
+        </p-accordion>
+
+        <div class="flex justify-end mt-3">
+            <p-button label="Add Product" icon="pi pi-plus-circle" class="mr-2 btn-add" (click)="onProduct('add')"/>
+            <p-button label="Import" class="btn-import mr-2" icon="fa-solid fa-cloud-arrow-up" iconPos="left"></p-button>
+            <p-button label="export" class="btn-export" icon="fa-solid fa-cloud-arrow-down" iconPos="left"></p-button>
+        </div>
+
+        <div class="grid grid-cols-1 mt-3">
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [scrollable]="false">
+                <ng-template #header>
+                    <tr>
+                        <th>barcode</th>
+                        <th>Sku Code</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Supplier Code</th>
+                        <th>Brand Code</th>
+                        <th>Balance qty</th>
+                        <th>Unit</th>
+                        <th>Cost Price</th>
+                        <th>Status</th>
+                        <th>Created by</th>
+                        <th>Updated by</th>
+                        <th>Created at</th>
+                        <th>Updated at</th>
+                        <th class="tbAction" style="width: 150px;">Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-product>
+                    <tr>
+                        <td class="text-center">{{ product.barcode }}</td>
+                        <td class="text-center">{{ product.sku_code }}</td>
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.product_description }}</td>
+                        <td>{{ product.category_code }}</td>
+                        <td>{{ product.supplier_code }}</td>
+                        <td class="text-center">{{ product.brand_code }}</td>
+                        <td class="text-center">{{ product.balance_qty }}</td>
+                        <td class="text-center">{{ product.unit }}</td>
+                        <td class="text-center">{{ product.cost_price }}</td>
+                        <td class="text-center">{{ product.status }}</td>
+                        <td class="text-center">{{ product.created_by }}</td>
+                        <td class="text-center">{{ product.updated_by }}</td>
+                        <td class="text-center">{{ product.created_at | date :'dd/MM/yyyy' }}</td>
+                        <td class="text-center">{{ product.updated_at | date :'dd/MM/yyyy' }}</td>
+                        <td class="text-center tbAction" style="width: 150px;">
+                            <i class="fa-solid fa-pencil mr-2" (click)="onProduct('edit')"></i>
+                            <i class="fa-solid fa-trash" (click)="onDelete()"></i>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+
+<app-add-product [visible]="isShowAddProduct" [titleHeader]="titleHeader" (onComplete)="onCompleteProduct($event)"></app-add-product>
