@@ -1,0 +1,55 @@
+<div class="layout-container">
+    <div class="container-header">
+        <h1 class="title-header">Transaction Log</h1>
+        <h2 class="line-header"></h2>
+    </div>
+    <div class="container-body">
+        <div class="grid grid-cols-1 mt-3">
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [scrollable]="false">
+                <ng-template #header>
+                    <tr>
+                        <th>barcode</th>
+                        <th>Sku Code</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Supplier Code</th>
+                        <th>Brand Code</th>
+                        <th>Balance qty</th>
+                        <th>Unit</th>
+                        <th>Cost Price</th>
+                        <th>Status</th>
+                        <th>Created by</th>
+                        <th>Updated by</th>
+                        <th>Created at</th>
+                        <th>Updated at</th>
+                        <!-- <th class="tbAction" style="width: 150px;">Action</th> -->
+                    </tr>
+                </ng-template>
+                <ng-template #body let-product>
+                    <tr>
+                        <td class="text-center">{{ product.barcode }}</td>
+                        <td class="text-center">{{ product.sku_code }}</td>
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.product_description }}</td>
+                        <td>{{ product.category_code }}</td>
+                        <td>{{ product.supplier_code }}</td>
+                        <td class="text-center">{{ product.brand_code }}</td>
+                        <td class="text-center">{{ product.balance_qty }}</td>
+                        <td class="text-center">{{ product.unit }}</td>
+                        <td class="text-center">{{ product.cost_price }}</td>
+                        <td class="text-center">{{ product.status }}</td>
+                        <td class="text-center">{{ product.created_by }}</td>
+                        <td class="text-center">{{ product.updated_by }}</td>
+                        <td class="text-center">{{ product?.created_at | date :'dd/MM/yyyy' }}</td>
+                        <td class="text-center">{{ product?.updated_at | date :'dd/MM/yyyy' }}</td>
+                        <!-- <td class="text-center tbAction" style="width: 150px;">
+                            <i class="fa-solid fa-pencil mr-2" (click)="onProduct('edit')"></i>
+                            <i class="fa-solid fa-trash" (click)="onDelete()"></i>
+                        </td> -->
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

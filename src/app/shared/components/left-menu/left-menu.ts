@@ -21,11 +21,11 @@ export class LeftMenu {
       routerLink: ['/product'],
       routerLinkActiveOptions: { exact: true }
     },
-    // {
-    //   label: 'Transition Log',
-    //   icon: 'fa-solid fa-clock-rotate-left',
-    //   routerLink: ['/transaction'],
-    // }
+    {
+      label: 'Transition Log',
+      icon: 'fa-solid fa-clock-rotate-left',
+      routerLink: ['/transaction'],
+    }
   ]
 
   constructor(private router: Router) {}
