@@ -10,10 +10,14 @@
     margin-top: 0;
 }
 
-input, p-select {
+input, p-select, p-multiselect {
     width: 98%;
 }
 
 textarea, p-datepicker {
     width: 99%;
+}
+
+.required {
+    color: var(--color-text-red);
 }

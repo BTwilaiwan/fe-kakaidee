@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ApiResponseModel } from '../model/api-response-model';
 import { environment } from '../../../environment/environment'
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -21,7 +21,28 @@ export class ProductService {
   }
 
 
-  getProduct() {
-    return this._http.get<ApiResponseModel<null>>(`${environment.apis.product}`).pipe(map(o => o.result));
+  getProduct(params?: any) {
+    let httpParams = new HttpParams();
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value) {
+          httpParams = httpParams.set(key, String(value));
+        }
+      });
+    }
+    
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.product}`, { params: httpParams }).pipe(map(o => o.result));
+  }
+
+  getDdlCategory() {
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/category`).pipe(map(o => o.result));
+  }
+
+  getDdlLot() {
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/lot`).pipe(map(o => o.result));
+  }
+
+  exportExcel() {
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.product}/export`).pipe(map(o => o.result));
   }
 }

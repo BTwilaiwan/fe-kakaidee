@@ -3,27 +3,27 @@
     <form [formGroup]="productForm">
         <div class="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-4 lg:grid-cols-12 mt-6">
             <div class="col-span-6">
-                <label for="txtBarcode">Barcode</label>
+                <label for="txtBarcode">Barcode <span class="required"> *</span></label>
                 <input pInputText id="txtBarcode" class="mt-2 mb-3" formControlName="barcode" />
             </div>
             <div class="col-span-6 ml-2">
-                <label for="skuCode">Sku Code</label>
+                <label for="skuCode">Sku Code <span class="required"> *</span></label>
                 <input pInputText id="txtSkuCode" class="mt-2 mb-3" formControlName="sku_code" />
             </div>
             <div class="col-span-6">
-                <label for="skuCode">Name</label>
+                <label for="skuCode">Name <span class="required"> *</span></label>
                 <input pInputText id="txtName" class="mt-2 mb-3" formControlName="product_name"/>
             </div>
             <div class="col-span-6 ml-2">
-                <label for="ddlCategory">Category Code</label>
+                <label for="ddlCategory">Category Code <span class="required"> *</span></label>
                 <p-select id="ddlCategory" [options]="categoryList" optionLabel="name" placeholder="Select Category Code" class="mt-2 mb-2"  formControlName="category_code"/>
             </div>
             <div class="col-span-6">
-                <label for="txtSupplier">Supplier Code</label>
+                <label for="txtSupplier">Supplier Code <span class="required"> *</span></label>
                 <input pInputText id="txtSupplier" class="mt-2 mb-3" formControlName="supplier_code"/>
             </div>
             <div class="col-span-6 ml-2">
-                <label for="ddlBrandCode">brand code</label>
+                <label for="ddlBrandCode">brand code <span class="required"> *</span></label>
                 <p-select id="ddlBrandCode" [options]="brandCodeList" optionLabel="name" placeholder="Select Brand Code" class="mt-2 mb-2" formControlName="brand_code"/>
 
             </div>
@@ -44,11 +44,11 @@
                 <input pInputText id="txtBin" class="mt-2 mb-3" formControlName="bin"/>
             </div>
             <div class="col-span-6">
-                <label for="txtWarehouseName">Warehouse Name</label>
+                <label for="txtWarehouseName">Warehouse Name <span class="required"> *</span></label>
                 <input pInputText id="txtWarehouseName" class="mt-2 mb-3" formControlName="warehouse_name"/>
             </div>
             <div class="col-span-6 ml-2">
-                <label for="txtWarehouseZone">Warehouse Zone</label>
+                <label for="txtWarehouseZone">Warehouse Zone <span class="required"> *</span></label>
                 <input pInputText id="txtWarehouseZone" class="mt-2 mb-3" formControlName="warehouse_zone"/>
             </div>
             
