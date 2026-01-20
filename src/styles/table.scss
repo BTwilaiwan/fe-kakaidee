@@ -63,3 +63,50 @@ p-paginator p-select { width: 100px }
   border-top-right-radius: 0;
   justify-content: end;
 }
+
+
+.p-datatable-thead {
+  word-wrap: break-word;
+  tr {
+    th {
+      text-align: center !important;
+      width: 80px;
+      
+      &#thName,
+      &.thName {
+          width: 200px;
+      }
+      &#thDescription,
+      &.thDescription {
+          width: 200px;
+      }
+    }
+  }
+}
+
+.p-datatable-tbody {
+  word-wrap: break-word;
+  tr {
+    td {
+      width: 80px;
+
+      &#tdName,
+      &.tdName {
+          width: 200px;
+      }
+      &#tdDescription,
+      &.tdDescription {
+          width: 200px;
+      }
+      &#tdAction,
+      &.tdAction {
+        .fa-solid.fa-pencil {
+          color: var(--primary-color);
+        }
+        .fa-solid.fa-trash {
+          color: var(--color-text-red);
+        }
+      }
+    }
+  }
+}

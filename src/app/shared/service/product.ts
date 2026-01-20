@@ -39,10 +39,20 @@ export class ProductService {
   }
 
   getDdlLot() {
-    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/lot`).pipe(map(o => o.result));
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.prdStock}/search/lot`).pipe(map(o => o.result));
+  }
+  
+  getDdlWarehouse() {
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.prdStock}/search/warehouse`).pipe(map(o => o.result));
   }
 
   exportExcel() {
     return this._http.get<ApiResponseModel<null>>(`${environment.apis.product}/export`).pipe(map(o => o.result));
+  }
+
+  importExcel(uploadFile: any) {
+    const formData = new FormData();
+    formData.append('file', uploadFile)
+    return this._http.post<ApiResponseModel<null>>(`${environment.apis.product}/import/excel`, formData, httpOptions)
   }
 }

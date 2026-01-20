@@ -19,15 +19,17 @@
 
     --table-header-color: #ecfdf5;
 
-    // --p-primary-50:  #fdeaea;
-    // --p-primary-100: #f9c5c5;
-    // --p-primary-200: #f29a9a;
-    // --p-primary-300: #ea6f6f;
-    // --p-primary-400: #e34545;
-    // --p-primary-500: #e00000; 
-    // --p-primary-600: #c20000;
-    // --p-primary-700: #a80000;
-    // --p-primary-800: #8e0000;
-    // --p-primary-900: #6f0000;
+    --btn-bg-danger: #ed1c24;
+    --btn-bg-danger-hover: #f4685f;
+    --btn-bg-success: #11d278;
+    --btn-bg-success-hover: #2dde8b;
+    --btn-bg-warning: #f0ac1a;
+    --btn-bg-warning-hover: #f4c55f;
+    --btn-txt-danger: #FFFFFF;
+    --btn-txt-success: #FFFFFF;
+    --btn-txt-warning: #FFFFFF;
+    --backdrop-bg: rgba(100, 100, 100, 0.32);
+    --backdrop-filter: blur(5px)
+
 }
 

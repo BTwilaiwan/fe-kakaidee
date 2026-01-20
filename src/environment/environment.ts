@@ -3,5 +3,6 @@ export const environment = {
     apis: {
       basic: `${localhost}`,
       product: `${localhost}/product`,
+      prdStock: `${localhost}/product-stocks`,
     }
 }
