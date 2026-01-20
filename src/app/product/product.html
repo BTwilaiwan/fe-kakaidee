@@ -12,26 +12,26 @@
                         <div class="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-4 lg:grid-cols-12">
                             <div class="col-span-2">
                                 <label for="txtBarcode">Barcode</label>
-                                <input pInputText id="txtBarcode" class="mt-2 mb-3" formControlName="barcode" />
+                                <input pInputText id="txtBarcode" class="mt-2 mb-3" formControlName="barcode" placeholder="Barcode"/>
                             </div>
                             <div class="col-span-2">
                                 <label for="skuCode">Sku Code</label>
-                                <input pInputText id="txtSkuCode" class="mt-2 mb-2" formControlName="sku_code"/>
+                                <input pInputText id="txtSkuCode" class="mt-2 mb-2" formControlName="sku_code" placeholder="Sku Code"/>
                             </div>
                             <div class="col-span-2">
                                 <label for="txtName">Product Name</label>
-                                <input pInputText id="txtName" class="mt-2 mb-2" formControlName="keyword" />
+                                <input pInputText id="txtName" class="mt-2 mb-2" formControlName="keyword" placeholder="Product Name"/>
                             </div>
                             <div class="col-span-2">
                                 <label for="ddlCategory">Category</label>
-                                <p-select id="ddlCategory" [options]="categoryList" optionLabel="category_name_th" placeholder="Select Category Code" class="mt-2 mb-2"  formControlName="category_code" [filter]="true" appendTo="body"/>
+                                <p-select id="ddlCategory" [options]="categoryList" optionLabel="category_name_th" placeholder="Select Category" class="mt-2 mb-2"  formControlName="category" [filter]="true" appendTo="body"/>
                                 <!-- <p-multiselect [options]="categoryList" placeholder="Select Category" optionLabel="category_name_th" display="chip" class="mt-2 mb-2" formControlName="category_code"/> -->
                             </div>
                             <div class="col-span-2">
                                 <label for="ddlWarehouse">Warehouse</label>
-                                <p-select id="ddlWarehouse" [options]="warehouseList" optionLabel="warehouses_name" placeholder="Select Warehouse" class="mt-2 mb-2"  formControlName="warehouse_name" [filter]="true" appendTo="body"/>
+                                <p-select id="ddlWarehouse" [options]="warehouseList" optionLabel="warehouse_name" placeholder="Select Warehouse" class="mt-2 mb-2"  formControlName="warehouse" [filter]="true" appendTo="body"/>
 
-                                <!-- <p-multiselect [options]="warehouseList" placeholder="Select Warehouse" optionLabel="warehouses_name" display="chip" class="mt-2 mb-2" formControlName="category_code"/> -->
+                                <!-- <p-multiselect [options]="warehouseList" placeholder="Select Warehouse" optionLabel="warehouse_name" display="chip" class="mt-2 mb-2" formControlName="category_code"/> -->
                             </div>
                             <div class="col-span-2">
                                 <label for="ddlLot">Lot</label>
@@ -102,6 +102,13 @@
                         <td id="tdAction" class="text-center">
                             <i class="fa-solid fa-pencil mr-2" (click)="onProduct('edit')"></i>
                             <i class="fa-solid fa-trash" (click)="onDelete()"></i>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="100%" class="text-center">
+                            Data not found
                         </td>
                     </tr>
                 </ng-template>

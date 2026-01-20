@@ -53,8 +53,8 @@ export class Product {
       barcode: new FormControl({value: '', disabled: false}),
       keyword: new FormControl({value: '', disabled: false}),
       sku_code: new FormControl({value: '', disabled: false}),
-      category_code: new FormControl({value: '', disabled: false}),
-      warehouse_name: new FormControl({value: '', disabled: false}),
+      category: new FormControl({value: '', disabled: false}),
+      warehouse: new FormControl({value: '', disabled: false}),
       lot_no: new FormControl({value: '', disabled: false}),
       status: new FormControl({value: '', disabled: false}),
     })
@@ -86,9 +86,10 @@ export class Product {
       next: (response: any) => {
         this.products = response;
         this._cdr.detectChanges();
-        console.log(this.products)
+        this.loadingService.stop();
       },
         error: (err) => {
+        this.loadingService.stop();
         this.alertService.alert('error', '', err.message);
         this.products = [];
       }
@@ -143,19 +144,21 @@ export class Product {
   }
 
   onFilter() {
+    this.loadingService.start()
     const filterForm = this.filterForm.value;
     const dataFilter = {
-      keyword: filterForm.keyword,
-      sku_code: filterForm.sku_code,
-      category_code: filterForm.category_code,
-      warehouse_name: filterForm.warehouse_name,
-      lot_no: filterForm.lot_no,
-      status: filterForm.status
+      keyword: filterForm?.keyword,
+      sku_code: filterForm?.sku_code,
+      category_code: filterForm?.category?.category_code,
+      warehouse_name: filterForm?.warehouse?.warehouse_name,
+      lot_no: filterForm?.lot_no?.lot_no,
+      status: filterForm?.status
     }
     this.getProduct(dataFilter);
   }
 
   onClear() {
+    this.loadingService.start()
     this.filterForm.reset();
     this.getProduct();
   }
