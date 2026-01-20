@@ -24,16 +24,18 @@
                             </div>
                             <div class="col-span-2">
                                 <label for="ddlCategory">Category</label>
-                                <!-- <p-select id="ddlCategory" [options]="categoryList" optionLabel="category_name_th" placeholder="Select Category" class="mt-2 mb-2" formControlName="category_code"/> -->
-                                <p-multiselect [options]="categoryList" placeholder="Select Category" optionLabel="category_name_th" display="chip" class="mt-2 mb-2" formControlName="category_code"/>
+                                <p-select id="ddlCategory" [options]="categoryList" optionLabel="category_name_th" placeholder="Select Category Code" class="mt-2 mb-2"  formControlName="category_code" [filter]="true" appendTo="body"/>
+                                <!-- <p-multiselect [options]="categoryList" placeholder="Select Category" optionLabel="category_name_th" display="chip" class="mt-2 mb-2" formControlName="category_code"/> -->
                             </div>
                             <div class="col-span-2">
-                                <label for="txtLocation">Location</label>
-                                <input pInputText id="txtLocation" class="mt-2 mb-2" formControlName="warehouse_name"/>
+                                <label for="ddlWarehouse">Warehouse</label>
+                                <p-select id="ddlWarehouse" [options]="warehouseList" optionLabel="warehouses_name" placeholder="Select Warehouse" class="mt-2 mb-2"  formControlName="warehouse_name" [filter]="true" appendTo="body"/>
+
+                                <!-- <p-multiselect [options]="warehouseList" placeholder="Select Warehouse" optionLabel="warehouses_name" display="chip" class="mt-2 mb-2" formControlName="category_code"/> -->
                             </div>
                             <div class="col-span-2">
                                 <label for="ddlLot">Lot</label>
-                                <p-select id="ddlLot" [options]="lotList" optionLabel="name" placeholder="Select Lot" class="mt-2 mb-2" formControlName="lot_no" />
+                                <p-select id="ddlLot" [options]="lotList" optionLabel="lot_no" placeholder="Select Lot" class="mt-2 mb-2" formControlName="lot_no" [filter]="true" appendTo="body"/>
 
                             </div>
                             <!-- <div class="col-span-2">
@@ -52,50 +54,52 @@
 
         <div class="flex justify-end mt-3">
             <p-button label="Add Product" icon="pi pi-plus-circle" class="mr-2 btn-add" (click)="onProduct('add')"/>
-            <p-button label="Import" class="btn-import mr-2" icon="fa-solid fa-cloud-arrow-up" iconPos="left"></p-button>
+            <input style="display: none" type="file" (change)="onFileSelect($event)" #hiddenFileInput>
+            <p-button label="Import" class="btn-import mr-2" icon="fa-solid fa-cloud-arrow-up" iconPos="left" (click)="hiddenFileInput.click()"></p-button>
             <p-button label="export" class="btn-export" icon="fa-solid fa-cloud-arrow-down" iconPos="left" (click)="onExport()"></p-button>
         </div>
 
         <div class="grid grid-cols-1 mt-3">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [scrollable]="false">
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [scrollable]="false"
+            (onPage)="pageChange($event)">
                 <ng-template #header>
                     <tr>
-                        <th>barcode</th>
-                        <th>Sku Code</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Supplier Code</th>
-                        <th>Brand Code</th>
-                        <th>Balance qty</th>
-                        <th>Unit</th>
-                        <th>Cost Price</th>
-                        <th>Status</th>
-                        <th>Created by</th>
+                        <th id="thBarcode">barcode</th>
+                        <th id="thSku">Sku Code</th>
+                        <th id="thName">Product Name</th>
+                        <th id="thDescription">Description</th>
+                        <th id="thCategory">Category</th>
+                        <th id="thSupplier">Supplier Code</th>
+                        <th id="thBrand">Brand Code</th>
+                        <th id="thBalance">Balance qty</th>
+                        <th id="thUnit">Unit</th>
+                        <th id="thCostPrice">Cost Price</th>
+                        <th id="thStatus">Status</th>
+                        <!-- <th>Created by</th>
                         <th>Updated by</th>
                         <th>Created at</th>
-                        <th>Updated at</th>
-                        <th class="tbAction" style="width: 150px;">Action</th>
+                        <th>Updated at</th> -->
+                        <th id="tdAction" style="width: 150px;">Action</th>
                     </tr>
                 </ng-template>
                 <ng-template #body let-product>
                     <tr>
-                        <td class="text-center">{{ product.barcode }}</td>
-                        <td class="text-center">{{ product.sku_code }}</td>
-                        <td>{{ product.product_name }}</td>
-                        <td>{{ product.product_description }}</td>
-                        <td>{{ product.category_code }}</td>
-                        <td>{{ product.supplier_code }}</td>
-                        <td class="text-center">{{ product.brand_code }}</td>
-                        <td class="text-center">{{ product.balance_qty }}</td>
-                        <td class="text-center">{{ product.unit }}</td>
-                        <td class="text-center">{{ product.cost_price }}</td>
-                        <td class="text-center">{{ product.status }}</td>
-                        <td class="text-center">{{ product.created_by }}</td>
+                        <td id="tdBarcode" class="text-center">{{ product.barcode }}</td>
+                        <td id="tdSku" class="text-center">{{ product.sku_code }}</td>
+                        <td id="tdName">{{ product.product_name }}</td>
+                        <td id="tdDescription">{{ product.product_description }}</td>
+                        <td id="tdCategory" class="text-center">{{ product.category_code }}</td>
+                        <td id="tdSupplier" class="text-center">{{ product.supplier_code }}</td>
+                        <td id="tdBrand" class="text-center">{{ product.brand_code }}</td>
+                        <td id="tdBalance" class="text-center">{{ product.balance_qty }}</td>
+                        <td id="tdUnit" class="text-center">{{ product.unit_name }}</td>
+                        <td id="tdCostPrice" class="text-center">{{ product.cost_price }}</td>
+                        <td id="tdStatus" class="text-center">{{ product.status }}</td>
+                        <!-- <td class="text-center">{{ product.created_by }}</td>
                         <td class="text-center">{{ product.updated_by }}</td>
                         <td class="text-center">{{ product.created_at | date :'dd/MM/yyyy' }}</td>
-                        <td class="text-center">{{ product.updated_at | date :'dd/MM/yyyy' }}</td>
-                        <td class="text-center tbAction" style="width: 150px;">
+                        <td class="text-center">{{ product.updated_at | date :'dd/MM/yyyy' }}</td> -->
+                        <td id="tdAction" class="text-center">
                             <i class="fa-solid fa-pencil mr-2" (click)="onProduct('edit')"></i>
                             <i class="fa-solid fa-trash" (click)="onDelete()"></i>
                         </td>
@@ -104,7 +108,8 @@
             </p-table>
         </div>
     </div>
+
+    <app-add-product [visible]="isShowAddProduct" [titleHeader]="titleHeader" [categoryList]="categoryList" [warehouseList]="warehouseList" [lotNoList]="lotList" (onComplete)="onCompleteProduct($event)"></app-add-product>
+
 </div>
 
-
-<app-add-product [visible]="isShowAddProduct" [titleHeader]="titleHeader" (onComplete)="onCompleteProduct($event)"></app-add-product>

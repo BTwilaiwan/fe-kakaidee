@@ -10,7 +10,7 @@
     margin-top: 0;
 }
 
-input, p-select, p-multiselect {
+input, p-select, p-multiselect, p-inputnumber {
     width: 98%;
 }
 
@@ -22,3 +22,8 @@ textarea, p-datepicker {
     color: var(--color-text-red);
 }
 
+.ng-invalid.ng-touched.p-inputtext,
+.ng-invalid.ng-touched.p-select,
+.ng-invalid.ng-touched.p-multiselect {
+  border-color: var(--border-requied);
+}

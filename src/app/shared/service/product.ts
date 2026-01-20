@@ -46,6 +46,14 @@ export class ProductService {
     return this._http.get<ApiResponseModel<null>>(`${environment.apis.prdStock}/search/warehouse`).pipe(map(o => o.result));
   }
 
+  getDdlBrand() {
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/brand`).pipe(map(o => o.result));
+  }
+
+  getDdlSupplier() {
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/supplier`).pipe(map(o => o.result));
+  }
+
   exportExcel() {
     return this._http.get<ApiResponseModel<null>>(`${environment.apis.product}/export`).pipe(map(o => o.result));
   }

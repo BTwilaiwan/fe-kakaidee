@@ -64,21 +64,34 @@ p-paginator p-select { width: 100px }
   justify-content: end;
 }
 
+.p-datatable table {
+  table-layout: fixed;
+}
 
 .p-datatable-thead {
   word-wrap: break-word;
-  tr {
-    th {
+  > tr {
+    > th {
       text-align: center !important;
-      width: 80px;
+      width: 100px;
       
-      &#thName,
-      &.thName {
-          width: 200px;
+      &#thBarcode,
+      &.thBarcode,
+      &#thSku,
+      &.thSku {
+          width: 150px;
       }
+
+      &#thName,
+      &.thName,
       &#thDescription,
       &.thDescription {
           width: 200px;
+      }
+
+      &#thUnit,
+      &.thUnit {
+          width: 100px;
       }
     }
   }
@@ -86,17 +99,27 @@ p-paginator p-select { width: 100px }
 
 .p-datatable-tbody {
   word-wrap: break-word;
-  tr {
-    td {
-      width: 80px;
+  > tr {
+    > td {
+      width: 100px;
+
+      &#tdBarcode,
+      &.tdBarcode,
+      &#tdSku,
+      &.tdSku {
+          width: 120px;
+      }
 
       &#tdName,
-      &.tdName {
-          width: 200px;
-      }
+      &.tdName,
       &#tdDescription,
       &.tdDescription {
           width: 200px;
+      }
+
+      &#tdUnit,
+      &.tdUnit {
+          width: 100px;
       }
       &#tdAction,
       &.tdAction {

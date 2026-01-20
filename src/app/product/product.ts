@@ -12,6 +12,8 @@ import { ImportModule } from '../shared/importModule';
 import { firstValueFrom } from 'rxjs';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { saveAs } from 'file-saver';
+import { LoadingService } from '../shared/service/loading';
+import { ProductsModel, WarehouseModel } from '../shared/model/product';
 
 @Component({
   selector: 'app-product',
@@ -25,19 +27,22 @@ export class Product {
   public categoryList: any[] = [];
   public lotList: any[] = [];
   public statusList: any[] = [];
-  public brandList: any[] = [];
-  public products: any[] = [];
+  public warehouseList!: WarehouseModel[];
+  public products!: ProductsModel[];
   public isShowAddProduct: boolean = false;
   public titleHeader: string = '';
   public filterForm!: FormGroup;
+  public uploadFile: any;
  
   constructor(
     private alertService: AlertService,
     private productService: ProductService,
+    private loadingService: LoadingService,
     private _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
+    this.loadingService.start();
     this.initFrom();
     this.initData();
     // this.initDropdown();
@@ -48,7 +53,7 @@ export class Product {
       barcode: new FormControl({value: '', disabled: false}),
       keyword: new FormControl({value: '', disabled: false}),
       sku_code: new FormControl({value: '', disabled: false}),
-      category_code: new FormControl({value: [], disabled: false}),
+      category_code: new FormControl({value: '', disabled: false}),
       warehouse_name: new FormControl({value: '', disabled: false}),
       lot_no: new FormControl({value: '', disabled: false}),
       status: new FormControl({value: '', disabled: false}),
@@ -57,16 +62,22 @@ export class Product {
 
   async initData() {
     try {
-      const [products, categories] = await Promise.all([
-        firstValueFrom(this.productService.getProduct()),
+      const [products, categories, lots, warehouse] = await Promise.all([
+        firstValueFrom(this.productService.getProduct({limit: 10, page: 1})),
         firstValueFrom(this.productService.getDdlCategory()),
-        // firstValueFrom(this.productService.getDdlLot()),
+        firstValueFrom(this.productService.getDdlLot()),
+        firstValueFrom(this.productService.getDdlWarehouse()),
       ])
       this.products = Array.isArray(products) ? products : [];
       this.categoryList = Array.isArray(categories) ? categories : [];
-      // this.lotList = Array.isArray(lots) ? lots : [];
-    } catch (error) {
-
+      this.lotList = Array.isArray(lots) ? lots : [];
+      this.warehouseList = Array.isArray(warehouse) ? warehouse : [];
+      console.log(lots)
+      this._cdr.detectChanges();
+      this.loadingService.stop();
+    } catch (error: any) {
+      this.loadingService.stop();
+      this.alertService.alert('error', '', error.error.message);
     }
   }
 
@@ -78,7 +89,7 @@ export class Product {
         console.log(this.products)
       },
         error: (err) => {
-        this.alertService.alert('error', err.message);
+        this.alertService.alert('error', '', err.message);
         this.products = [];
       }
     })
@@ -94,10 +105,20 @@ export class Product {
     try {
       if (event.mode === 'cancel') this.isShowAddProduct = false;
       else if(event.mode === 'save') {
-        this.productService.createProduct(event.data).subscribe({
+        const data = event.data;
+        const dataCreate = {...data, 
+          category_code: Number(data?.category?.category_code),
+          supplier_code: Number(data?.supplier?.supplier_code),
+          brand_code: Number(data?.brand?.brand_code),
+          lot_no: data?.lot_no?.lot_no,
+          warehouse_name: data?.warehouse?.warehouse_name,
+          warehouse_zone: data?.warehouse?.warehouse_zone,
+        }
+        console.log(dataCreate)
+        this.productService.createProduct(dataCreate).subscribe({
           next: (response: any) => {
             if (response.status_code === 201) {
-              this.alertService.alert('success', response.message).then((data) => {
+              this.alertService.alert('success', '', response.message).then((data) => {
                 if (data.isConfirmed) {
                   this.isShowAddProduct = false;
                   this.getProduct();
@@ -106,12 +127,12 @@ export class Product {
             }
           },
           error: (err) => {
-            this.alertService.alert('error', err?.error?.message || 'Internal Server Error')
+            this.alertService.alert('error', '', err?.error?.message || 'Internal Server Error')
           },
         })
       }
     } catch (error) {
-      this.alertService.alert('error', 'Internal Server Error')
+      this.alertService.alert('error', '', 'Internal Server Error')
     }
   }
 
@@ -155,5 +176,30 @@ export class Product {
         saveAs(blob, `${fileName}`);
       }
     })
+  }
+
+  onFileSelect(event: any) {
+    this.uploadFile = event.target.files[0];
+    if (this.uploadFile) {
+      this.loadingService.start();
+      this.productService.importExcel(this.uploadFile).subscribe({
+        next: (response: any) => {
+          this.loadingService.stop();
+          this.alertService.alert('success', '', response.message).then((data) => {
+            if (data.isConfirmed) {
+              console.log(response)
+            }
+          })
+        },
+        error: (err) => {
+          this.loadingService.stop();
+          this.alertService.alert('error', '', err.error.message)
+        }
+      })
+    }
+  }
+
+  pageChange(event: any) {
+    console.log(event)
   }
 }

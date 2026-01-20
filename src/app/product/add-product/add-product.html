@@ -4,73 +4,71 @@
         <div class="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-4 lg:grid-cols-12 mt-6">
             <div class="col-span-6">
                 <label for="txtBarcode">Barcode <span class="required"> *</span></label>
-                <input pInputText id="txtBarcode" class="mt-2 mb-3" formControlName="barcode" />
+                <input pInputText id="txtBarcode" class="mt-2 mb-3" formControlName="barcode" placeholder="Barcode"/>
             </div>
             <div class="col-span-6 ml-2">
                 <label for="skuCode">Sku Code <span class="required"> *</span></label>
-                <input pInputText id="txtSkuCode" class="mt-2 mb-3" formControlName="sku_code" />
+                <input pInputText id="txtSkuCode" class="mt-2 mb-3" formControlName="sku_code" placeholder="Sku Code"/>
             </div>
             <div class="col-span-6">
-                <label for="skuCode">Name <span class="required"> *</span></label>
-                <input pInputText id="txtName" class="mt-2 mb-3" formControlName="product_name"/>
+                <label for="skuCode">Product Name <span class="required"> *</span></label>
+                <input pInputText id="txtName" class="mt-2 mb-3" formControlName="product_name" placeholder="Product Name"/>
             </div>
             <div class="col-span-6 ml-2">
-                <label for="ddlCategory">Category Code <span class="required"> *</span></label>
-                <p-select id="ddlCategory" [options]="categoryList" optionLabel="name" placeholder="Select Category Code" class="mt-2 mb-2"  formControlName="category_code"/>
+                <label for="multiCategory">Category<span class="required"> *</span></label>
+                <p-select id="ddlCategory" [options]="categoryList" optionLabel="category_name_th" placeholder="Select Category Code" class="mt-2 mb-3"  formControlName="category" [filter]="true" appendTo="body"/>
             </div>
             <div class="col-span-6">
-                <label for="txtSupplier">Supplier Code <span class="required"> *</span></label>
-                <input pInputText id="txtSupplier" class="mt-2 mb-3" formControlName="supplier_code"/>
-            </div>
-            <div class="col-span-6 ml-2">
-                <label for="ddlBrandCode">brand code <span class="required"> *</span></label>
-                <p-select id="ddlBrandCode" [options]="brandCodeList" optionLabel="name" placeholder="Select Brand Code" class="mt-2 mb-2" formControlName="brand_code"/>
+                <label for="ddlSupplier">Supplier<span class="required"> *</span></label>
+                <p-select id="ddlSupplier" [options]="supplierList" optionLabel="supplier_name" placeholder="Select Brand Code" class="mt-2 mb-3" formControlName="supplier" [filter]="true" appendTo="body"/>
 
-            </div>
-            <div class="col-span-6">
-                <label for="ddlUnit">Unit</label>
-                <p-select id="ddlUnit" [options]="unitList" optionLabel="name" placeholder="Select Unit" class="mt-2 mb-3" formControlName="unit"/>
+                <!-- <input pInputText id="txtSupplier" class="mt-2 mb-3" formControlName="supplier_code"/> -->
             </div>
             <div class="col-span-6 ml-2">
-                <label for="txtCostPrice">Cost Price</label>
-                <input pInputText id="txtCostPrice" class="mt-2 mb-3" formControlName="cost_price"/>
+                <label for="ddlBrandCode">brand<span class="required"> *</span></label>
+                <p-select id="ddlBrandCode" [options]="brandList" optionLabel="brand_name" placeholder="Select Brand Code" class="mt-2 mb-3" formControlName="brand" [filter]="true" appendTo="body"/>
             </div>
             <div class="col-span-6">
+                <label for="txtWarehouseName">Warehouse<span class="required"> *</span></label>
+                <p-select id="ddlBrandCode" [options]="warehouseList" optionLabel="warehouse_name" placeholder="Select Brand Code" class="mt-2 mb-3" formControlName="warehouse" [filter]="true" appendTo="body"/>
+            </div>
+            <div class="flex flex-col col-span-6 ml-2">
+                <label for="txtUnit">Unit</label>
+                <p-inputnumber id="numUnit" placeholder="Unit" class="mt-2 mb-3" formControlName="unit" placeholder="Unit"/>
+            </div>
+            <div class="flex flex-col col-span-6">
+                <label for="numCostPrice">Cost Price</label>
+                 <p-inputnumber id="numCostPrice" placeholder="Cost Price" class="mt-2 mb-3" formControlName="cost_price" mode="decimal" [maxFractionDigits]="2"/>
+                <!-- <input pInputText id="txtCostPrice" class="mt-2 mb-3" formControlName="cost_price"/> -->
+            </div>
+            <div class="col-span-6 ml-2">
                 <label for="ddlLotNo">Lot no</label>
-                <p-select id="ddlLotNo" [options]="lotNoList" optionLabel="name" placeholder="Select Lot No" class="mt-2 mb-3"  formControlName="lot_no"/>
-            </div>
-            <div class="col-span-6 ml-2">
-                <label for="txtBin">Bin</label>
-                <input pInputText id="txtBin" class="mt-2 mb-3" formControlName="bin"/>
+                <p-select id="ddlLotNo" [options]="lotNoList" optionLabel="lot_no" placeholder="Select Lot No" class="mt-2 mb-3"  formControlName="lot_no" [filter]="true" appendTo="body"/>
             </div>
             <div class="col-span-6">
-                <label for="txtWarehouseName">Warehouse Name <span class="required"> *</span></label>
-                <input pInputText id="txtWarehouseName" class="mt-2 mb-3" formControlName="warehouse_name"/>
-            </div>
-            <div class="col-span-6 ml-2">
-                <label for="txtWarehouseZone">Warehouse Zone <span class="required"> *</span></label>
-                <input pInputText id="txtWarehouseZone" class="mt-2 mb-3" formControlName="warehouse_zone"/>
+                <label for="txtBin">Bin</label>
+                <input pInputText id="txtBin" class="mt-2 mb-3" formControlName="bin" placeholder="Bin"/>
             </div>
             
-            <div class="col-span-6">
+            <div class="col-span-6 ml-2">
                 <label for="ddlStockType">Stock Type</label>
-                <p-select id="ddlStockType" [options]="stockTypeList" optionLabel="name" placeholder="Select Stock Type" class="mt-2 mb-3"  formControlName="stock_type"/>
-            </div>
-             <div class="col-span-6 ml-2">
-                <label for="txtReceive">Receive qty</label>
-                <input pInputText id="txtReceive" class="mt-2 mb-3" formControlName="receive_qty"/>
+                <p-select id="ddlStockType" [options]="stockTypeList" optionLabel="id" placeholder="Select Stock Type" class="mt-2 mb-3"  formControlName="stock_type" [filter]="true" appendTo="body"/>
             </div>
              <div class="col-span-6">
-                <label for="txtMfg">mfg</label>
-                <p-datepicker formControlName="mfg" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" class="mt-2 mb-3"/>
+                <label for="txtReceive">Receive qty</label>
+                <p-inputnumber id="numReceive" placeholder="Receive qty" class="mt-2 mb-3" formControlName="receive_qty"/>
             </div>
              <div class="col-span-6 ml-2">
-                <label for="txtExp">exp</label>
-                <p-datepicker formControlName="exp" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" class="mt-2 mb-3"/>
+                <label for="txtMfg">MFG Date</label>
+                <p-datepicker formControlName="mfg" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" class="mt-2 mb-3" placeholder="Select MFG Date"/>
+            </div>
+             <div class="col-span-6">
+                <label for="txtExp">EXP Date</label>
+                <p-datepicker formControlName="exp" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" class="mt-2 mb-3" placeholder="Select EXP Date"/>
             </div>
              <div class="col-span-12">
                 <label for="txtDescription">Description</label>
-                <textarea id="txtDescription" pTextarea class="mt-2 mb-3" rows="5" formControlName="product_description"></textarea>
+                <textarea id="txtDescription" pTextarea class="mt-2 mb-3" rows="5" formControlName="product_description" placeholder="Description"></textarea>
             </div>
         </div>
         <div class="flex justify-center pt-4 pb-4 ">
