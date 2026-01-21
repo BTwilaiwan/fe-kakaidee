@@ -13,7 +13,7 @@ import { firstValueFrom } from 'rxjs';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { saveAs } from 'file-saver';
 import { LoadingService } from '../shared/service/loading';
-import { ProductsModel, WarehouseModel } from '../shared/model/product';
+import { ProductsModel, WarehouseModel, LotModel, StatusModel, categoryModel } from '../shared/model/product';
 
 @Component({
   selector: 'app-product',
@@ -24,9 +24,9 @@ import { ProductsModel, WarehouseModel } from '../shared/model/product';
 })
 export class Product {
 
-  public categoryList: any[] = [];
-  public lotList: any[] = [];
-  public statusList: any[] = [];
+  public categoryList!: categoryModel[];
+  public lotList!: LotModel[];
+  public statusList: StatusModel[] = [{value: true}, {value: false}];
   public warehouseList!: WarehouseModel[];
   public products!: ProductsModel[];
   public isShowAddProduct: boolean = false;

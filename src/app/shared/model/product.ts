@@ -45,3 +45,15 @@ export interface SupplierModel {
 export interface LotModel {
     lot_no: string;
 }
+
+export interface StatusModel {
+    value: boolean;
+}
+
+export interface categoryModel {
+    _id?: string;
+    category_code?: number;
+    category_name_en?: string;
+    category_name_th?: string;
+    status?: boolean;
+}

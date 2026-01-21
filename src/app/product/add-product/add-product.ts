@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TextareaModule } from 'primeng/textarea';
 import { DatePickerModule } from 'primeng/datepicker';
 import { MultiSelectModule } from 'primeng/multiselect';
-import { BrandModel, SupplierModel, WarehouseModel, LotModel } from '../../shared/model/product';
+import { BrandModel, SupplierModel, WarehouseModel, LotModel, categoryModel } from '../../shared/model/product';
 import { ProductService } from '../../shared/service/product';
 import { firstValueFrom } from 'rxjs';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -24,7 +24,7 @@ export class AddProduct {
 
   @Input() visible: boolean = false;
   @Input() titleHeader: string = '';
-  @Input() categoryList: any[] = [];
+  @Input() categoryList!: categoryModel[];
   @Input() warehouseList!: WarehouseModel[];
   @Input() lotNoList!: LotModel[];
   @Output() onComplete: EventEmitter<any> = new EventEmitter<any>();
@@ -88,6 +88,7 @@ export class AddProduct {
     } else this.productForm.markAllAsTouched();
   }
   onCancel() {
+    this.productForm.reset();
     this.onComplete.emit({ mode: 'cancel' });
   }
 }

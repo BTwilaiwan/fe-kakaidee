@@ -78,7 +78,9 @@ p-paginator p-select { width: 100px }
       &#thBarcode,
       &.thBarcode,
       &#thSku,
-      &.thSku {
+      &.thSku,
+      &#thSupplier,
+      &.thSupplier {
           width: 150px;
       }
 
@@ -89,9 +91,9 @@ p-paginator p-select { width: 100px }
           width: 200px;
       }
 
-      &#thUnit,
-      &.thUnit {
-          width: 100px;
+      &#thCategory,
+      &.thCategory {
+          width: 110px;
       }
     }
   }
@@ -106,8 +108,10 @@ p-paginator p-select { width: 100px }
       &#tdBarcode,
       &.tdBarcode,
       &#tdSku,
-      &.tdSku {
-          width: 120px;
+      &.tdSku,
+      &#tdSupplier,
+      &.tdSupplier {
+          width: 150px;
       }
 
       &#tdName,
@@ -120,6 +124,10 @@ p-paginator p-select { width: 100px }
       &#tdUnit,
       &.tdUnit {
           width: 100px;
+      }
+      &#thCategory,
+      &.thCategory {
+          width: 110px;
       }
       &#tdAction,
       &.tdAction {
