@@ -4,6 +4,9 @@
         <h2 class="line-header"></h2>
     </div>
     <div class="container-body">
+        <div class="flex justify-end mt-3">
+            <p-button label="export" class="btn-export" icon="fa-solid fa-cloud-arrow-down" iconPos="left"></p-button>
+        </div>
         <div class="grid grid-cols-1 mt-3">
             <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [scrollable]="false">
                 <ng-template #header>
@@ -47,6 +50,13 @@
                             <i class="fa-solid fa-pencil mr-2" (click)="onProduct('edit')"></i>
                             <i class="fa-solid fa-trash" (click)="onDelete()"></i>
                         </td> -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="100%" class="text-center">
+                            Data not found
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
