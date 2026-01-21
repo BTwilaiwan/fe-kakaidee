@@ -5,51 +5,41 @@
     </div>
     <div class="container-body">
         <div class="flex justify-end mt-3">
-            <p-button label="export" class="btn-export" icon="fa-solid fa-cloud-arrow-down" iconPos="left"></p-button>
+            <p-button label="export" class="btn-export" icon="fa-solid fa-cloud-arrow-down" iconPos="left" (click)="onExport()"></p-button>
         </div>
         <div class="grid grid-cols-1 mt-3">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [scrollable]="false">
+            <p-table [value]="transLog" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[10, 15, 20]" [scrollable]="false"
+                (onLazyLoad)="onLazyLoad($event)" [totalRecords]="totalRecords" [lazy]="true">
                 <ng-template #header>
                     <tr>
-                        <th>barcode</th>
-                        <th>Sku Code</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Supplier Code</th>
-                        <th>Brand Code</th>
-                        <th>Balance qty</th>
-                        <th>Unit</th>
-                        <th>Cost Price</th>
-                        <th>Status</th>
-                        <th>Created by</th>
-                        <th>Updated by</th>
-                        <th>Created at</th>
-                        <th>Updated at</th>
-                        <!-- <th class="tbAction" style="width: 150px;">Action</th> -->
+                        <th>User Id</th>
+                        <th>Request Id</th>
+                        <th>Function Method</th>
+                        <th id="thFunctionName">Function Name</th>
+                        <th>Count Data</th>
+                        <th>Duration ms</th>
+                        <th>Query Collection</th>
+                        <th>Query Type</th>
+                        <th>Start Time</th>
+                        <th>Status Code</th>
+                        <th>Status Message</th>
+                        <th>Created By</th>
                     </tr>
                 </ng-template>
-                <ng-template #body let-product>
+                <ng-template #body let-items>
                     <tr>
-                        <td class="text-center">{{ product.barcode }}</td>
-                        <td class="text-center">{{ product.sku_code }}</td>
-                        <td>{{ product.product_name }}</td>
-                        <td>{{ product.product_description }}</td>
-                        <td>{{ product.category_code }}</td>
-                        <td>{{ product.supplier_code }}</td>
-                        <td class="text-center">{{ product.brand_code }}</td>
-                        <td class="text-center">{{ product.balance_qty }}</td>
-                        <td class="text-center">{{ product.unit }}</td>
-                        <td class="text-center">{{ product.cost_price }}</td>
-                        <td class="text-center">{{ product.status }}</td>
-                        <td class="text-center">{{ product.created_by }}</td>
-                        <td class="text-center">{{ product.updated_by }}</td>
-                        <td class="text-center">{{ product?.created_at | date :'dd/MM/yyyy' }}</td>
-                        <td class="text-center">{{ product?.updated_at | date :'dd/MM/yyyy' }}</td>
-                        <!-- <td class="text-center tbAction" style="width: 150px;">
-                            <i class="fa-solid fa-pencil mr-2" (click)="onProduct('edit')"></i>
-                            <i class="fa-solid fa-trash" (click)="onDelete()"></i>
-                        </td> -->
+                        <td class="text-center">{{ items.user_id }}</td>
+                        <td class="text-center">{{ items.request_id }}</td>
+                        <td class="text-center">{{ items.function_method }}</td>
+                        <td id="tdFunctionName">{{ items.function_name }}</td>
+                        <td class="text-center">{{ items.count_data }}</td>
+                        <td class="text-center">{{ items.duration_ms }}</td>
+                        <td>{{ items.query_collection }}</td>
+                        <td class="text-center">{{ items.query_type }}</td>
+                        <td class="text-center">{{ items.start_time | date :'dd/MM/yyyy' }}</td>
+                        <td class="text-center">{{ items.status_code }}</td>
+                        <td class="text-center">{{ items.status_message }}</td>
+                        <td class="text-center">{{ items.created_by }}</td>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="emptymessage">

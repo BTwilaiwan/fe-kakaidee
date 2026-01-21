@@ -4,5 +4,6 @@ export const environment = {
       basic: `${localhost}`,
       product: `${localhost}/product`,
       prdStock: `${localhost}/product-stocks`,
+      trans: `${localhost}/transaction-log`,
     }
 }

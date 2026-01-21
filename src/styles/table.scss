@@ -80,8 +80,13 @@ p-paginator p-select { width: 100px }
       &#thSku,
       &.thSku,
       &#thSupplier,
-      &.thSupplier {
+      &.thSupplier{
           width: 150px;
+      }
+
+      &#thFunctionName,
+      &.thFunctionName {
+          width: 170px;
       }
 
       &#thName,
@@ -112,6 +117,11 @@ p-paginator p-select { width: 100px }
       &#tdSupplier,
       &.tdSupplier {
           width: 150px;
+      }
+
+      &#tdFunctionName,
+      &.tdFunctionName {
+          width: 170px;
       }
 
       &#tdName,
