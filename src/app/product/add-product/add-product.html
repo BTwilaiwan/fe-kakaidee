@@ -1,5 +1,5 @@
-<p-dialog header="{{titleHeader}}" maskStyleClass="backdrop-blur-sm" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" 
-[draggable]="false" [resizable]="false" (onHide)="onCancel()">
+<p-dialog header="{{titleHeader}}" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" 
+[draggable]="false" (onHide)="onCancel()" [resizable]="false" [blockScroll]="true" (onShow)="lockScroll()">
     <form [formGroup]="productForm">
         <div class="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-4 lg:grid-cols-12 mt-6">
             <div class="col-span-6">
@@ -60,11 +60,11 @@
             </div>
              <div class="col-span-6 ml-2">
                 <label for="txtMfg">MFG Date</label>
-                <p-datepicker formControlName="mfg" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" class="mt-2 mb-3" placeholder="Select MFG Date"/>
+                <p-datepicker formControlName="mfg" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" class="mt-2 mb-3" placeholder="Select MFG Date" appendTo="body"/>
             </div>
              <div class="col-span-6">
                 <label for="txtExp">EXP Date</label>
-                <p-datepicker formControlName="exp" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" class="mt-2 mb-3" placeholder="Select EXP Date"/>
+                <p-datepicker formControlName="exp" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" class="mt-2 mb-3" placeholder="Select EXP Date" appendTo="body"/>
             </div>
              <div class="col-span-12">
                 <label for="txtDescription">Description</label>

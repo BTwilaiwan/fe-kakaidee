@@ -10,16 +10,16 @@
                     <p-accordion-header>Filter</p-accordion-header>
                     <p-accordion-content>
                         <div class="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-4 lg:grid-cols-12">
-                            <div class="col-span-2">
+                            <!-- <div class="col-span-2">
                                 <label for="txtBarcode">Barcode</label>
                                 <input pInputText id="txtBarcode" class="mt-2 mb-3" formControlName="barcode" placeholder="Barcode"/>
-                            </div>
-                            <div class="col-span-2">
+                            </div> -->
+                            <div class="col-span-3">
                                 <label for="skuCode">Sku Code</label>
                                 <input pInputText id="txtSkuCode" class="mt-2 mb-2" formControlName="sku_code" placeholder="Sku Code"/>
                             </div>
-                            <div class="col-span-2">
-                                <label for="txtName">Product Name</label>
+                            <div class="col-span-3">
+                                <label for="txtName">Product Name / Barcode</label>
                                 <input pInputText id="txtName" class="mt-2 mb-2" formControlName="keyword" placeholder="Product Name"/>
                             </div>
                             <div class="col-span-2">
@@ -55,13 +55,13 @@
         <div class="flex justify-end mt-3">
             <p-button label="Add Product" icon="pi pi-plus-circle" class="mr-2 btn-add" (click)="onProduct('add')"/>
             <input style="display: none" type="file" (change)="onFileSelect($event)" #hiddenFileInput>
-            <p-button label="Import" class="btn-import mr-2" icon="fa-solid fa-cloud-arrow-up" iconPos="left" (click)="hiddenFileInput.click()"></p-button>
+            <p-button label="Import" class="btn-import mr-2" icon="fa-solid fa-cloud-arrow-up" iconPos="left" (click)="openFile(hiddenFileInput)"></p-button>
             <p-button label="export" class="btn-export" icon="fa-solid fa-cloud-arrow-down" iconPos="left" (click)="onExport()"></p-button>
         </div>
 
         <div class="grid grid-cols-1 mt-3">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]" [scrollable]="false"
-            (onPage)="pageChange($event)">
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" [scrollable]="false"
+            (onLazyLoad)="onLazyLoad($event)" [totalRecords]="totalRecords" [lazy]="true">
                 <ng-template #header>
                     <tr>
                         <th id="thBarcode">barcode</th>
@@ -115,8 +115,7 @@
             </p-table>
         </div>
     </div>
-
-    <app-add-product [visible]="isShowAddProduct" [titleHeader]="titleHeader" [categoryList]="categoryList" [warehouseList]="warehouseList" [lotNoList]="lotList" (onComplete)="onCompleteProduct($event)"></app-add-product>
-
 </div>
+
+<app-add-product [visible]="isShowAddProduct" [titleHeader]="titleHeader" [categoryList]="categoryList" [warehouseList]="warehouseList" [lotNoList]="lotList" (onComplete)="onCompleteProduct($event)"></app-add-product>
 

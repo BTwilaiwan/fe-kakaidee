@@ -61,6 +61,6 @@ export class ProductService {
   importExcel(uploadFile: any) {
     const formData = new FormData();
     formData.append('file', uploadFile)
-    return this._http.post<ApiResponseModel<null>>(`${environment.apis.product}/import/excel`, formData, httpOptions)
+    return this._http.post<ApiResponseModel<null>>(`${environment.apis.product}/import/excel`, formData)
   }
 }
