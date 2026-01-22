@@ -26,16 +26,16 @@ import { DialogModule } from 'primeng/dialog';
 })
 export class Product {
 
-  public categoryList!: categoryModel[];
-  public lotList!: LotModel[];
+  public categoryList: categoryModel[] = [];
+  public lotList: LotModel[] = [];
   public statusList: StatusModel[] = [{value: true}, {value: false}];
-  public warehouseList!: WarehouseModel[];
-  public products!: ProductsModel[];
+  public warehouseList: WarehouseModel[] = [];
+  public products: ProductsModel[] = [];
   public isShowAddProduct: boolean = false;
   public titleHeader: string = '';
   public filterForm!: FormGroup;
   public uploadFile: any;
-  public defaultTb!: ProductsModel[];
+  public defaultTb: ProductsModel[] = [];
   public dataFilter: any;
   public totalRecords: number = 0;
  
@@ -47,10 +47,9 @@ export class Product {
   ) {}
 
   ngOnInit() {
-    this.loadingService.start();
     this.initFrom();
+    this.loadingService.start();
     this.initData();
-    // this.initDropdown();
   }
 
   initFrom() {
@@ -90,14 +89,16 @@ export class Product {
   getProduct(params?: any) {
     this.productService.getProduct(params).subscribe({
       next: (response: any) => {
-        this.products = response?.data ?? [];
-        this.totalRecords = response.total_data;
-        this._cdr.markForCheck(); // ขอ Angular ตรวจรอบหน้า 
-        this.loadingService.stop();
+        if (response) {
+          this.products = response?.data ?? [];
+          this.totalRecords = response?.total_data ?? 0;
+          this._cdr.markForCheck(); // ขอ Angular ตรวจรอบหน้า 
+          this.loadingService.stop();
+        } else this.loadingService.stop()
       }, error: (err) => {
         this.loadingService.stop();
-        this.alertService.alert('error', '', err.message);
         this.products = [];
+        this.alertService.alert('error', '', err.message);
       }
     })
   }
@@ -134,11 +135,15 @@ export class Product {
             }
           },
           error: (err) => {
+            console.log(err)
+
             this.alertService.alert('error', '', err?.error?.message || 'Internal Server Error')
           },
         })
       }
     } catch (error) {
+        console.log(error)
+
       this.alertService.alert('error', '', 'Internal Server Error')
     }
   }
