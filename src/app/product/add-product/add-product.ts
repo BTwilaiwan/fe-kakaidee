@@ -32,9 +32,9 @@ export class AddProduct {
   public brandList!: BrandModel[];
   public supplierList!: SupplierModel[];
   public stockTypeList: any[] = [
-    {id: 'NORMAL'},
-    {id: 'COOL'},
-    {id: 'FREEZE'},
+    {id: 'Normal'},
+    {id: 'Cool'},
+    {id: 'Freezer'},
   ];
   public productForm!: FormGroup;
 

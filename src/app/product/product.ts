@@ -81,10 +81,8 @@ export class Product {
       this.warehouseList = Array.isArray(warehouse) ? warehouse : [];
       this.defaultTb = cloneDeep(this.products);
       this._cdr.detectChanges();
-      // console.log(productRes)
       this.loadingService.stop();
     } catch (error: any) {
-      console.log(error)
       this.loadingService.stop();
       this.alertService.alert('error', '', error.error.message);
     }
@@ -123,6 +121,7 @@ export class Product {
           lot_no: data?.lot_no?.lot_no,
           warehouse_name: data?.warehouse?.warehouse_name,
           warehouse_zone: data?.warehouse?.warehouse_zone,
+          stock_type: data?.stock_type?.id,
         }
         this.productService.createProduct(dataCreate).subscribe({
           next: (response: any) => {
