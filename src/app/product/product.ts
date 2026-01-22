@@ -192,6 +192,7 @@ export class Product {
         saveAs(blob, `${fileName}`);
         this.loadingService.stop();
       }, error: (err) => {
+        this.loadingService.stop();
         this.alertService.alert('error', '', err?.error?.message)
       }
     })
