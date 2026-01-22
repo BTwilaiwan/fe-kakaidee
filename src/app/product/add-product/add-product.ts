@@ -32,9 +32,9 @@ export class AddProduct {
   public brandList!: BrandModel[];
   public supplierList!: SupplierModel[];
   public stockTypeList: any[] = [
-    {id: 'NORMAL'},
-    {id: 'COOL'},
-    {id: 'FREEZE'},
+    {id: 'Normal'},
+    {id: 'Cool'},
+    {id: 'Freezer'},
   ];
   public productForm!: FormGroup;
 
@@ -87,8 +87,22 @@ export class AddProduct {
       this.onComplete.emit({ mode: 'save', data: this.productForm.value });
     } else this.productForm.markAllAsTouched();
   }
+
   onCancel() {
     this.productForm.reset();
+
+    const main = document.querySelector('.router-container') as HTMLElement;
+    if (!main) return;
+
+    main.style.overflow = 'auto';
+
     this.onComplete.emit({ mode: 'cancel' });
+  }
+
+  lockScroll() {
+    const main = document.querySelector('.router-container') as HTMLElement;
+    if (!main) return;
+
+    main.style.overflow = 'hidden';
   }
 }

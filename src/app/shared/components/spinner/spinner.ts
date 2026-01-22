@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { BlockUIModule } from 'primeng/blockui';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
@@ -16,7 +16,8 @@ export class Spinner {
   public loading: boolean = false;
 
   constructor(
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {

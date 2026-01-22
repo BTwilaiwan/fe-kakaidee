@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
@@ -9,16 +9,18 @@ import { AlertService } from '../shared/service/alert';
 import { ProductService } from '../shared/service/product';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImportModule } from '../shared/importModule';
-import { firstValueFrom } from 'rxjs';
+import { finalize, firstValueFrom } from 'rxjs';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { saveAs } from 'file-saver';
 import { LoadingService } from '../shared/service/loading';
 import { ProductsModel, WarehouseModel, LotModel, StatusModel, categoryModel } from '../shared/model/product';
+import { cloneDeep } from 'lodash';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [ ImportModule, AccordionModule, InputTextModule, SelectModule, ButtonModule, TableModule, AddProduct, MultiSelectModule ],
+  imports: [ ImportModule, AccordionModule, InputTextModule, SelectModule, ButtonModule, TableModule, AddProduct, MultiSelectModule, DialogModule ],
   templateUrl: './product.html',
   styleUrl: './product.scss',
 })
@@ -33,6 +35,9 @@ export class Product {
   public titleHeader: string = '';
   public filterForm!: FormGroup;
   public uploadFile: any;
+  public defaultTb!: ProductsModel[];
+  public dataFilter: any;
+  public totalRecords: number = 0;
  
   constructor(
     private alertService: AlertService,
@@ -50,7 +55,7 @@ export class Product {
 
   initFrom() {
     this.filterForm = new FormGroup({
-      barcode: new FormControl({value: '', disabled: false}),
+      // barcode: new FormControl({value: '', disabled: false}),
       keyword: new FormControl({value: '', disabled: false}),
       sku_code: new FormControl({value: '', disabled: false}),
       category: new FormControl({value: '', disabled: false}),
@@ -62,17 +67,19 @@ export class Product {
 
   async initData() {
     try {
-      const [products, categories, lots, warehouse] = await Promise.all([
-        firstValueFrom(this.productService.getProduct({limit: 10, page: 1})),
+      let [categories, lots, warehouse] = await Promise.all([
+        firstValueFrom(this.productService.getDdlCategory()),
         firstValueFrom(this.productService.getDdlCategory()),
         firstValueFrom(this.productService.getDdlLot()),
         firstValueFrom(this.productService.getDdlWarehouse()),
       ])
-      this.products = Array.isArray(products) ? products : [];
+      // let productRes: any = products;
+      // this.totalRecords = productRes.total_data;
+      // this.products = Array.isArray(productRes?.data) ? productRes?.data : [];
       this.categoryList = Array.isArray(categories) ? categories : [];
       this.lotList = Array.isArray(lots) ? lots : [];
       this.warehouseList = Array.isArray(warehouse) ? warehouse : [];
-      console.log(lots)
+      this.defaultTb = cloneDeep(this.products);
       this._cdr.detectChanges();
       this.loadingService.stop();
     } catch (error: any) {
@@ -84,11 +91,11 @@ export class Product {
   getProduct(params?: any) {
     this.productService.getProduct(params).subscribe({
       next: (response: any) => {
-        this.products = response;
-        this._cdr.detectChanges();
+        this.products = response?.data ?? [];
+        this.totalRecords = response.total_data;
+        this._cdr.markForCheck(); // ขอ Angular ตรวจรอบหน้า 
         this.loadingService.stop();
-      },
-        error: (err) => {
+      }, error: (err) => {
         this.loadingService.stop();
         this.alertService.alert('error', '', err.message);
         this.products = [];
@@ -114,8 +121,8 @@ export class Product {
           lot_no: data?.lot_no?.lot_no,
           warehouse_name: data?.warehouse?.warehouse_name,
           warehouse_zone: data?.warehouse?.warehouse_zone,
+          stock_type: data?.stock_type?.id,
         }
-        console.log(dataCreate)
         this.productService.createProduct(dataCreate).subscribe({
           next: (response: any) => {
             if (response.status_code === 201) {
@@ -146,7 +153,9 @@ export class Product {
   onFilter() {
     this.loadingService.start()
     const filterForm = this.filterForm.value;
-    const dataFilter = {
+    this.dataFilter = {
+      limit: 10,
+      page: 1,
       keyword: filterForm?.keyword,
       sku_code: filterForm?.sku_code,
       category_code: filterForm?.category?.category_code,
@@ -154,16 +163,16 @@ export class Product {
       lot_no: filterForm?.lot_no?.lot_no,
       status: filterForm?.status
     }
-    this.getProduct(dataFilter);
+    this.getProduct(this.dataFilter);
   }
 
   onClear() {
-    this.loadingService.start()
     this.filterForm.reset();
-    this.getProduct();
+    this.products = this.defaultTb;
   }
 
   onExport() {
+    this.loadingService.start();
     this.productService.exportExcel().subscribe({
       next: (response: any) => {
         const dataFile = response;
@@ -177,22 +186,44 @@ export class Product {
           type: 'application/octet-stream',
         });
         saveAs(blob, `${fileName}`);
+        this.loadingService.stop();
+      }, error: (err) => {
+        this.alertService.alert('error', '', err?.error?.message)
       }
     })
   }
 
-  onFileSelect(event: any) {
-    this.uploadFile = event.target.files[0];
+  openFile(input: HTMLInputElement) {
+    input.value = '';   
+    input.click();
+  }
+
+  onFileSelect(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    this.uploadFile = file;
+     if (!this.uploadFile) return;
     if (this.uploadFile) {
       this.loadingService.start();
-      this.productService.importExcel(this.uploadFile).subscribe({
+      this.productService.importExcel(this.uploadFile).pipe(finalize(() => {
+        this.loadingService.stop();
+        this.uploadFile = undefined;
+        input.value = '';
+      })).subscribe({
         next: (response: any) => {
-          this.loadingService.stop();
-          this.alertService.alert('success', '', response.message).then((data) => {
-            if (data.isConfirmed) {
-              console.log(response)
-            }
-          })
+          if (response?.result?.failed !== null) {
+            this.alertService.alert('error', '', response?.result?.finalMassage);
+            this.uploadFile = undefined;
+          } else {
+            this.alertService.alert('success', '', response.message).then((data) => {
+              if (data.isConfirmed) {
+                this.uploadFile = undefined;
+                this.loadingService.start();
+                this.getProduct(this.dataFilter);
+              }
+            })
+          }
+          
         },
         error: (err) => {
           this.loadingService.stop();
@@ -202,7 +233,11 @@ export class Product {
     }
   }
 
-  pageChange(event: any) {
-    console.log(event)
+  onLazyLoad(event: any) {
+    let page: number = event.first / event.rows;
+    page = page + 1;
+    this.dataFilter = {...this.dataFilter, limit: event.rows, page: page};
+    this.loadingService.start();
+    this.getProduct(this.dataFilter)
   }
 }
