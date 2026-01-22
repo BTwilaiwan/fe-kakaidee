@@ -29,12 +29,12 @@ export class TransactionLog {
   }
 
   initaData(params: any) {
-    // this.loadingService.start();
+    this.loadingService.start();
     this.transService.getTransactionLog(params).subscribe({
       next: (response: any) => {
         this.transLog = response?.data ?? [];
         this.totalRecords = response?.total_data ?? 0;
-        // this.loadingService.stop();
+        this.loadingService.stop();
         this._cdr.detectChanges();
       },
       error: () => {
@@ -53,7 +53,7 @@ export class TransactionLog {
   }
  
   onExport() {
-    // this.loadingService.start();
+    this.loadingService.start();
     this.transService.exportTrans().subscribe({
       next: (response: any) => {
         const dataFile = response;
@@ -67,7 +67,7 @@ export class TransactionLog {
           type: 'application/octet-stream',
         });
         saveAs(blob, `${fileName}`);
-        // this.loadingService.stop();
+        this.loadingService.stop();
       }, error: (err) => {
         // this.alertService.alert('error', '', err?.error?.message)
         // this.loadingService.stop();
