@@ -10,7 +10,7 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Angular 21: dist/{project-name}/browser
 RUN sed -i.bak 's/listen\(.*\)80;/listen 8080;/' /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/*/browser /usr/share/nginx/html
+COPY --from=build /app/dist/fe-kakaidee/browser /usr/share/nginx/html
 
 EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
