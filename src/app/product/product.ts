@@ -69,7 +69,6 @@ export class Product {
     try {
       let [categories, lots, warehouse] = await Promise.all([
         firstValueFrom(this.productService.getDdlCategory()),
-        firstValueFrom(this.productService.getDdlCategory()),
         firstValueFrom(this.productService.getDdlLot()),
         firstValueFrom(this.productService.getDdlWarehouse()),
       ])
