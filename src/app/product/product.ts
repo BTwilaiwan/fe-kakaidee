@@ -71,9 +71,6 @@ export class Product {
         firstValueFrom(this.productService.getDdlLot()),
         firstValueFrom(this.productService.getDdlWarehouse()),
       ])
-      // let productRes: any = products;
-      // this.totalRecords = productRes.total_data;
-      // this.products = Array.isArray(productRes?.data) ? productRes?.data : [];
       this.categoryList = Array.isArray(categories) ? categories : [];
       this.lotList = Array.isArray(lots) ? lots : [];
       this.warehouseList = Array.isArray(warehouse) ? warehouse : [];
@@ -118,7 +115,7 @@ export class Product {
           category_code: Number(data?.category?.category_code),
           supplier_code: Number(data?.supplier?.supplier_code),
           brand_code: Number(data?.brand?.brand_code),
-          lot_no: data?.lot_no?.lot_no,
+          lot_no: data?.lot_no?.lots_no,
           warehouse_name: data?.warehouse?.warehouse_name,
           warehouse_zone: data?.warehouse?.warehouse_zone,
           stock_type: data?.stock_type?.id,
@@ -164,7 +161,7 @@ export class Product {
       sku_code: filterForm?.sku_code,
       category_code: filterForm?.category?.category_code,
       warehouse_name: filterForm?.warehouse?.warehouse_name,
-      lot_no: filterForm?.lot_no?.lot_no,
+      lot_no: filterForm?.lot_no?.lots_no,
       status: filterForm?.status
     }
     this.getProduct(this.dataFilter);
