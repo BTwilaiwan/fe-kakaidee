@@ -31,11 +31,11 @@ export class ProductService {
       });
     }
     
-    return this._http.get<ApiResponseModel<null>>(`${environment.apis.product}`, { params: httpParams }).pipe(map(o => o.result));
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.v2}/products`, { params: httpParams }).pipe(map(o => o.result));
   }
 
   getDdlCategory() {
-    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/category`).pipe(map(o => o.result));
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/categories`).pipe(map(o => o.result));
   }
 
   getDdlLot() {
@@ -47,11 +47,11 @@ export class ProductService {
   }
 
   getDdlBrand() {
-    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/brand`).pipe(map(o => o.result));
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/brands`).pipe(map(o => o.result));
   }
 
   getDdlSupplier() {
-    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/supplier`).pipe(map(o => o.result));
+    return this._http.get<ApiResponseModel<null>>(`${environment.apis.basic}/suppliers`).pipe(map(o => o.result));
   }
 
   exportExcel() {

@@ -43,7 +43,7 @@ export interface SupplierModel {
 }
 
 export interface LotModel {
-    lot_no: string;
+    lots_no: string;
 }
 
 export interface StatusModel {
